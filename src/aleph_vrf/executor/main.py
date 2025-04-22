@@ -14,6 +14,7 @@ if sys.version_info < (3, 9):
     from typing_extensions import Annotated
 else:
     from typing import Annotated
+from typing import AsyncGenerator
 
 import fastapi
 from aleph.sdk.exceptions import MessageNotFoundError, MultipleMessagesError
@@ -57,7 +58,7 @@ http_app = FastAPI()
 app = AlephApp(http_app=http_app)
 
 
-async def authenticated_aleph_client() -> AuthenticatedAlephHttpClient:
+async def authenticated_aleph_client() -> AsyncGenerator[AuthenticatedAlephHttpClient, None]:
     account = settings.aleph_account()
     async with AuthenticatedAlephHttpClient(
         account=account,
