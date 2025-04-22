@@ -60,7 +60,7 @@ async def post_executor_api_request(url: str, model: Type[M]) -> M:
 
             response = await resp.json()
 
-            return model.parse_obj(response["data"])
+            return model.model_validate(response["data"])
 
 
 async def prepare_executor_api_request(url: str) -> bool:
